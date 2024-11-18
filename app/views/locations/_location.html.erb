@@ -1,0 +1,11 @@
+<% require 'countries/global' %>
+
+<tr>
+  <td><%= Country[location.country_code].emoji_flag %></td>
+  <td><%= location.latitude %></td>
+  <td><%= location.longitude %></td>
+  <td><%= location.elevation %></td>
+  <td><%= location.population %></td>
+  <td><%= link_to "weather", location_path(location.name, latitude: location.latitude, longitude: location.longitude), class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %></td>
+</tr>
+

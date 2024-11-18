@@ -63,3 +63,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "open-meteo", git: "https://github.com/SpeerJ/open-meteo-ruby.git"
+
+gem "countries", "~> 7.0"
