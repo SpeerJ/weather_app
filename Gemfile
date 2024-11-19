@@ -67,3 +67,9 @@ end
 gem "open-meteo", git: "https://github.com/SpeerJ/open-meteo-ruby.git"
 
 gem "countries", "~> 7.0"
+
+gem "stringio", "3.1.2" # Resolve ambiguous gemspec warning
+
+gem "rspec-rails", "~> 7.1"
+
+gem "vcr", "~> 6.3"

@@ -1,7 +1,8 @@
 class Forecast
+  attr_reader :weather_code, :temperature
 
-
-  def to_partial_path
-    ""
+  def initialize(weather_code:, temperature:)
+    @weather_code = weather_code
+    @temperature = temperature
   end
 end

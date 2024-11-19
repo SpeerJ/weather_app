@@ -57,6 +57,7 @@
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.6, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="date (v3.4.0, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="debug (v1.9.2, asdf: 3.3.6) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.5.1, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="dotenv (v3.1.4, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="drb (v2.2.1, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="dry-configurable (v1.2.0, asdf: 3.3.6) [gem]" level="application" />
@@ -123,10 +124,15 @@
     <orderEntry type="library" scope="PROVIDED" name="railties (v8.0.0, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rainbow (v3.1.1, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v13.2.1, asdf: 3.3.6) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rdoc (v6.7.0, asdf: 3.3.6) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rdoc (v6.8.1, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v2.9.2, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="reline (v0.5.11, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rexml (v3.3.9, asdf: 3.3.6) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-core (v3.13.2, asdf: 3.3.6) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-expectations (v3.13.3, asdf: 3.3.6) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-mocks (v3.13.2, asdf: 3.3.6) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-rails (v7.1.0, asdf: 3.3.6) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rspec-support (v3.13.1, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop (v1.68.0, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-ast (v1.36.1, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-minitest (v0.36.0, asdf: 3.3.6) [gem]" level="application" />
@@ -155,6 +161,7 @@
     <orderEntry type="library" scope="PROVIDED" name="unicode-display_width (v2.6.0, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="uri (v1.0.2, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="useragent (v0.16.10, asdf: 3.3.6) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="vcr (v6.3.1, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="web-console (v4.2.1, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket (v1.2.11, asdf: 3.3.6) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="websocket-driver (v0.7.6, asdf: 3.3.6) [gem]" level="application" />
@@ -344,6 +351,7 @@
       <value>file://$MODULE_DIR$/public/stylesheets</value>
     </entry>
     <entry key="test/mailers/previews">
+      <value>file://$MODULE_DIR$/spec/mailers/previews</value>
       <value>file://$MODULE_DIR$/test/mailers/previews</value>
       <value>file://$MODULE_DIR$/test/mailers/previews</value>
     </entry>
@@ -554,6 +562,7 @@
               <RakeTaskImpl description="start solid_queue supervisor to dispatch and process jobs" fullCommand="solid_queue:start" id="start" />
             </subtasks>
           </RakeTaskImpl>
+          <RakeTaskImpl description="Run all specs in spec directory (excluding plugin specs)" fullCommand="spec" id="spec" />
           <RakeTaskImpl description="Report code statistics (KLOCs, etc) from the application or engine" fullCommand="stats" id="stats" />
           <RakeTaskImpl id="stimulus">
             <subtasks>
@@ -677,6 +686,12 @@
                   <RakeTaskImpl description="" fullCommand="railties:install:migrations" id="migrations" />
                 </subtasks>
               </RakeTaskImpl>
+            </subtasks>
+          </RakeTaskImpl>
+          <RakeTaskImpl id="spec">
+            <subtasks>
+              <RakeTaskImpl description="" fullCommand="spec:prepare" id="prepare" />
+              <RakeTaskImpl description="" fullCommand="spec:statsetup" id="statsetup" />
             </subtasks>
           </RakeTaskImpl>
           <RakeTaskImpl description="" fullCommand="tmp" id="tmp" />
