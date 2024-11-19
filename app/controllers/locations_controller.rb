@@ -1,16 +1,15 @@
-require_relative '../services/weather_repository'
-
 class LocationsController < ApplicationController
 
-  # GET /locations or /locations.json
+  # GET /locations
   def index
     @locations = search_params[:name].nil? ? [] : WeatherRepository.search(search_params[:name])
   end
 
-  # GET /locations/1 or /locations/1.json
+  # GET /locations/(Name to Display)?Latitude=$&Longitude=
   def show
     @location = weather_params[:id]
-    @forecast = WeatherRepository.get_weather(weather_params[:latitude], weather_params[:longitude])
+    @forecast = WeatherRepository.get_weather_cached(weather_params[:latitude], weather_params[:longitude])
+    flash.now[:notice] = "Using cached data" if @forecast.cached
   end
 
   private

@@ -1,10 +1,12 @@
 class ForecastSummary
   attr_reader :current_forecast, :hourly_forecast, :daily_forecast
+  attr_accessor :cached
 
-  def initialize(current_forecast:, hourly_forecasts:, daily_forecasts:)
+  def initialize(current_forecast:, hourly_forecasts:, daily_forecasts:, cached:)
     @current_forecast = current_forecast
     @hourly_forecast = hourly_forecasts
     @daily_forecast = daily_forecasts
+    @cached = cached
   end
 
   def to_partial_path

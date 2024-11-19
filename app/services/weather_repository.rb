@@ -55,7 +55,7 @@ module WeatherRepository
 
   ##
   # This method searches in OpenMeteo for locations
-  # We will take back the results into our own Foundlocation, especially the critical latitude, and longitude
+  # It puts the results into Foundlocation, especially the critical latitude, and longitude
   def self.search(name, variables: {})
     search = OpenMeteo::Search.new.get(name: name, variables:)
     search.results.map do |result|
@@ -71,6 +71,22 @@ module WeatherRepository
   end
 
   ##
+  # This method uses the previously acquired latitude and longitude and returns any non-expired cache
+  def self.get_weather_cached(latitude, longitude)
+    key = "weather_#{latitude}_#{longitude}"
+    already_cached = Rails.cache.exist?(key)
+
+    weather_results = Rails.cache.fetch(key, expires_in: 30.minutes) do
+      get_weather(latitude, longitude)
+    end
+    weather_results.cached = already_cached
+
+    weather_results
+  end
+
+  private
+
+  ##
   # This method uses previously acquired latitude and Longitude to find the forecast
   def self.get_weather(latitude, longitude, variables: {})
     location = OpenMeteo::Entities::Location.new(latitude: latitude.to_d, longitude: longitude.to_d)
@@ -84,10 +100,10 @@ module WeatherRepository
     ForecastSummary.new(
       current_forecast: deserialize(Forecast, raw_forecast.current.item),
       daily_forecasts: deserialize_array(DailyForecast, raw_forecast.daily),
-      hourly_forecasts: deserialize_array(Forecast, raw_forecast.hourly))
+      hourly_forecasts: deserialize_array(Forecast, raw_forecast.hourly),
+      cached: false
+      )
   end
-
-  private
 
   def self.deserialize_array(type, results)
     results.items.map do |item|
