@@ -8,6 +8,10 @@ class ForecastSummary
   end
 
   def to_partial_path
-    "forecast"
+    "forecast_summaries/forecast_summary"
+  end
+
+  def future_hourly_forecast
+    @hourly_forecast.select {|forecast| forecast.time.hour >= @current_forecast.time.hour}
   end
 end

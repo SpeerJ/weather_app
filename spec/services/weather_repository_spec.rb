@@ -21,12 +21,13 @@ RSpec.describe WeatherRepository do
     let(:latitude) { 46.2 }
     let(:longitude) { -74.1 }
     subject(:get_weather) { described_class.get_weather(latitude, longitude) }
-    context "When the forecast is retrieved" do
+    context "When the forecast summary is retrieved" do
       it "Returns a forecast summary" do
         VCR.use_cassette("get_weather_forecast") do
           result = get_weather
           expect(result).to be_a(ForecastSummary)
           expect(result.daily_forecast).to be_a(Array)
+          expect(result.daily_forecast.first.weather_code).to be_a(WeatherCode)
           expect(result.hourly_forecast.first.temperature).to be_between(-100, 200)
         end
       end
