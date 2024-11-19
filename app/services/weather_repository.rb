@@ -37,8 +37,8 @@ module WeatherRepository
     })
     ForecastSummary.new(
       current_forecast: deserialize_flat(Forecast, raw_forecast.current.item),
-      daily_forecast: deserialize_array(DailyForecast, raw_forecast.daily),
-      hourly_forecast: deserialize_array(Forecast, raw_forecast.hourly))
+      daily_forecasts: deserialize_array(DailyForecast, raw_forecast.daily),
+      hourly_forecasts: deserialize_array(Forecast, raw_forecast.hourly))
   end
 
   private
