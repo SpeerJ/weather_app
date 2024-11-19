@@ -12,6 +12,6 @@ class ForecastSummary
   end
 
   def future_hourly_forecast
-    @hourly_forecast.select {|forecast| forecast.time.hour >= @current_forecast.time.hour}
+    @hourly_forecast.select { |forecast| forecast.time.hour >= @current_forecast.time.hour }
   end
 end

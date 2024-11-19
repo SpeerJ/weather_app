@@ -9,7 +9,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/1 or /locations/1.json
   def show
-    @location = weather_params[:name]
+    @location = weather_params[:id]
     @forecast = WeatherRepository.get_weather(weather_params[:latitude], weather_params[:longitude])
   end
 
