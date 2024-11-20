@@ -1,0 +1,33 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://geocoding-api.open-meteo.com/v1/search?name=
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.12.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Wed, 20 Nov 2024 22:45:13 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '52'
+      connection:
+      - keep-alive
+      x-encoding-time:
+      - 0.0025033950805664062 ms
+      content-encoding:
+      - gzip
+    body:
+      encoding: UTF-8
+      string: '{"generationtime_ms":0.08606911}'
+  recorded_at: Wed, 20 Nov 2024 22:45:13 GMT
+recorded_with: VCR 6.3.1

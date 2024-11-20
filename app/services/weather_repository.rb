@@ -1,4 +1,6 @@
 require "open_meteo"
+require "open_meteo/client"
+
 
 ##
 # Handles the communication with the OpenMeteo gem and converting it's formats into useful models for our app
@@ -62,6 +64,8 @@ module WeatherRepository
   def self.search(name, variables: {})
     begin
     search = OpenMeteo::Search.new.get(name: name, variables:)
+
+    return [] if search.nil?
     search.results.map do |result|
       FoundLocation.new(
         name: result.name,
@@ -74,8 +78,11 @@ module WeatherRepository
     end
     rescue OpenMeteo::Client::ConnectionFailed
       raise WeatherApiError, "Something went wrong with the connection"
-    rescue OpenMeteo::Client::ConnectionTimeout
+    rescue OpenMeteo::Client::Timeout
       raise WeatherApiError, "The connection timed out"
+    rescue NoMethodError => e
+      return [] if e.message.include?("undefined method `map' for nil") # API client bug in cases of non-sensical searches
+      raise e
     end
   end
 
@@ -115,7 +122,7 @@ module WeatherRepository
       )
     rescue OpenMeteo::Client::ConnectionFailed
       raise WeatherApiError
-    rescue OpenMeteo::Client::ConnectionTimeout
+    rescue OpenMeteo::Client::Timeout
       raise WeatherApiError
     end
   end

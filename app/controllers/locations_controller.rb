@@ -2,7 +2,10 @@ class LocationsController < ApplicationController
   rescue_from WeatherRepository::WeatherApiError, with: :handle_api_error
   # GET /locations
   def index
-    @locations = search_params[:name].nil? ? [] : WeatherRepository.search(search_params[:name])
+    name = search_params[:name]
+    return @locations = [] if name.nil? || name.empty?
+
+    @locations = WeatherRepository.search(name)
   end
 
   # GET /locations/(Name to Display)?Latitude=$&Longitude=
