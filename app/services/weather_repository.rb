@@ -3,6 +3,9 @@ require "open_meteo"
 ##
 # Handles the communication with the OpenMeteo gem and converting it's formats into useful models for our app
 module WeatherRepository
+  # Create custom errors so our front-end is not coupled to the OpenMeteo gem
+  class WeatherApiError < StandardError; end
+
   ##
   # Contains the OpenMeteo name for attributes and our local name for attributes
   TRANSLATIONS = {
@@ -57,6 +60,7 @@ module WeatherRepository
   # This method searches in OpenMeteo for locations
   # It puts the results into Foundlocation, especially the critical latitude, and longitude
   def self.search(name, variables: {})
+    begin
     search = OpenMeteo::Search.new.get(name: name, variables:)
     search.results.map do |result|
       FoundLocation.new(
@@ -67,6 +71,11 @@ module WeatherRepository
         elevation: result.elevation,
         population: result.population,
         country_code: result.country_code)
+    end
+    rescue OpenMeteo::Client::ConnectionFailed
+      raise WeatherApiError, "Something went wrong with the connection"
+    rescue OpenMeteo::Client::ConnectionTimeout
+      raise WeatherApiError, "The connection timed out"
     end
   end
 
@@ -89,20 +98,26 @@ module WeatherRepository
   ##
   # This method uses previously acquired latitude and Longitude to find the forecast
   def self.get_weather(latitude, longitude, variables: {})
-    location = OpenMeteo::Entities::Location.new(latitude: latitude.to_d, longitude: longitude.to_d)
-    # We use variables to specify what kind of forecast we want.
-    raw_forecast = OpenMeteo::Forecast.new.get(location:, variables: {
-      **variables,
-      daily: TRANSLATIONS[DailyForecast].keys - [ :time ], # Remove time since this is already assumed and causes error
-      current: TRANSLATIONS[Forecast].keys - [ :time ],
-      hourly: TRANSLATIONS[Forecast].keys - [ :time ]
-    })
-    ForecastSummary.new(
-      current_forecast: deserialize(Forecast, raw_forecast.current.item),
-      daily_forecasts: deserialize_array(DailyForecast, raw_forecast.daily),
-      hourly_forecasts: deserialize_array(Forecast, raw_forecast.hourly),
-      cached: false
+    begin
+      location = OpenMeteo::Entities::Location.new(latitude: latitude.to_d, longitude: longitude.to_d)
+      # We use variables to specify what kind of forecast we want.
+      raw_forecast = OpenMeteo::Forecast.new.get(location:, variables: {
+        **variables,
+        daily: TRANSLATIONS[DailyForecast].keys - [ :time ], # Remove time since this is already assumed and causes error
+        current: TRANSLATIONS[Forecast].keys - [ :time ],
+        hourly: TRANSLATIONS[Forecast].keys - [ :time ]
+      })
+      ForecastSummary.new(
+        current_forecast: deserialize(Forecast, raw_forecast.current.item),
+        daily_forecasts: deserialize_array(DailyForecast, raw_forecast.daily),
+        hourly_forecasts: deserialize_array(Forecast, raw_forecast.hourly),
+        cached: false
       )
+    rescue OpenMeteo::Client::ConnectionFailed
+      raise WeatherApiError
+    rescue OpenMeteo::Client::ConnectionTimeout
+      raise WeatherApiError
+    end
   end
 
   def self.deserialize_array(type, results)

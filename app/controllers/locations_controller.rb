@@ -1,5 +1,5 @@
 class LocationsController < ApplicationController
-
+  rescue_from WeatherRepository::WeatherApiError, with: :handle_api_error
   # GET /locations
   def index
     @locations = search_params[:name].nil? ? [] : WeatherRepository.search(search_params[:name])
@@ -13,6 +13,10 @@ class LocationsController < ApplicationController
   end
 
   private
+
+  def handle_api_error(exception)
+     redirect_to root_path, flash: { alert: exception.message }
+  end
 
     # Only allow a list of trusted parameters through.
     def search_params
