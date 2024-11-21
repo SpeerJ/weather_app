@@ -1,0 +1,33 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://geocoding-api.open-meteo.com/v1/search?name=asdfasdfasdf
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.12.1
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      date:
+      - Thu, 21 Nov 2024 21:05:41 GMT
+      content-type:
+      - application/json; charset=utf-8
+      content-length:
+      - '52'
+      connection:
+      - keep-alive
+      x-encoding-time:
+      - 0.002193450927734375 ms
+      content-encoding:
+      - gzip
+    body:
+      encoding: UTF-8
+      string: '{"generationtime_ms":0.30493736}'
+  recorded_at: Thu, 21 Nov 2024 21:05:41 GMT
+recorded_with: VCR 6.3.1
