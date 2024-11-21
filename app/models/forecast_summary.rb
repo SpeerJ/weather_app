@@ -1,3 +1,7 @@
+##
+# A summary of all the forecast information
+# current, hourly, daily forecast: objects of Forecast classes that contain weather and temperature info
+# cached: Was this retrieved from cache?
 class ForecastSummary
   attr_reader :current_forecast, :hourly_forecast, :daily_forecast
   attr_accessor :cached
