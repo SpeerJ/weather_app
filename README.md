@@ -1,24 +1,6 @@
-# README
+# Weather APP
+A Ruby on Rails 8 and OpenMeteo based weather app.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+https://github.com/user-attachments/assets/3c35a9ef-4a67-4809-83c5-fe257dc6f791
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
