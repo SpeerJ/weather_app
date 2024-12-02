@@ -1,22 +1,31 @@
-<div class="flex flex-col">
-  <h1>Daily Forecast: </h1>
-  <div class="flex flex-row pb-5">
+<div class="mt-1 ml-5">
+  <h2>Daily Forecast: </h2>
+  <table class="table" style="width:30%">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Date</th>
+      <th scope="col">High</th>
+      <th scope="col">Low</th>
+    </tr>
+    </thead>
+    <tbody>
     <% @forecast.daily_forecast.each do |day| %>
-      <%= render day, locals: {daily_forecast: day} %>
-      <div class="w-3"></div>
+      <%= render day, locals: { daily_forecast: day } %>
     <% end %>
-  </div>
-  <hr class="pt-5"/>
-  <h2>Current Conditions:</h2>
-  <div class="pb-5">
-    <%= render @forecast.current_forecast %>
-  </div>
-  <hr class="pt-5"/>
-  <h1>Hourly Forecast</h1>
-  <div class="flex flex-row">
+    </tbody>
+  </table>
+</div>
+<h2 class="mt-5">Current Conditions:</h2>
+<div class="pb-5">
+  <%= render @forecast.current_forecast %>
+</div>
+<hr class="pt-5"/>
+<h1>Hourly Forecast</h1>
+<div class="container mb-5">
+  <div class="row">
     <% @forecast.future_hourly_forecast.take(7).each do |hour| %>
-      <%= render hour, locals: {forecast: hour} %>
-      <div class="w-3"></div>
+      <%= render hour, locals: { forecast: hour } %>
     <% end %>
   </div>
 </div>

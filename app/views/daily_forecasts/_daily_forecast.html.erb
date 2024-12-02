@@ -1,7 +1,6 @@
-<div class="bg-white w-32 h-32 flex flex-col items-center justify-center mt-4">
-  <div class="text-lg"><%= daily_forecast.weather_code.emoji %> <%= daily_forecast.date.strftime("%_m/%e") %></div>
-  <div class="flex flex-col">
-    <div>High: <%= daily_forecast.high %></div>
-    <div>Low: <%= daily_forecast.low %></div>
-  </div>
-</div>
+<tr>
+  <th scope="row"><%= daily_forecast.weather_code.emoji %></th>
+  <td> <%= daily_forecast.date.strftime("%_m/%e") %> </td>
+  <td> <%= daily_forecast.high %> </td>
+  <td> <%= daily_forecast.low %> </td>
+</tr>
