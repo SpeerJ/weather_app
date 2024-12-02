@@ -2,11 +2,11 @@
 This is a code challenge.
 A Ruby on Rails 8 and OpenMeteo based weather app.
 
-Enter your city, choose from the list of possible matches and get your weather.
+Enter your city and choose from the list of possible matches to get your forecast.
 
 https://github.com/user-attachments/assets/3c35a9ef-4a67-4809-83c5-fe257dc6f791
 
-## Technical Details and Design considerations
+## Technical Details and Design Considerations
 
 This app uses the OpenMeteo API through the open-meteo gem. weather_repository.rb is responsible for calling the API and handling any errors. WeatherRepository is a module. I chose a module over a singleton because, due to the API gem's design, no state needs to be persisted between calls. It also could have been a simple object instantiated on need. The advantage of that approach is that the decoupling provided made testing easier. However, using VCR for integration tests allows for rapid integration tests. Ultimately, I determined that a module was perfectly adequate.
 
