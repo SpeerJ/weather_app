@@ -13,3 +13,6 @@ This app uses the OpenMeteo API through the open-meteo gem. weather_repository.r
 The OpenMeteoDeserializable Mixin provides the code for deserialization in a way that is accessible to tests. It also checks on include for the class's "TRANSLATION" constant. This constant maps API versions of names to the names in the object. In order to decouple the API from internal models, it might have made sense to wrap these objects in some way or put the Translation constants elsewhere. However, to keep things simple and lines of code down, I elected to keep these constants in the model. It's subjective, and if I had worked with an existing code base, I might have done it differently depending on its style.
 
 This app has a simple GitHub workflow for CI and utilizes RSpec for integration, system, and unit testing. It provides near-total coverage of the Views, Models, Controllers, the WeatherRepository class, and the OpenMeteoDeserializable mixin.
+
+## Rails 6 and Bootstrap Branch
+There is an additional branch containing the app with the Rails version downgraded to 6 and using Bootstrap for styling. I created this to match the interviewer's stack.
